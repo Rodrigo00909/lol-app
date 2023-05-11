@@ -1,13 +1,30 @@
 "use client";
 
-import { useState } from "react";
-import Link from "next/link";
+import { useState } from 'react';
+import Link from 'next/link';
 
-const Header = ({ showMenu, toggleMenu }) => {
+/* Estado global que detecte si el nav está cerrado o no para cerrar el div del manu lateral (useContext) */ /* https://zustand-demo.pmnd.rs/ es un estado global */
+
+const Header = () => {
+  const [showMenu, setShowMenu] = useState(true);
+
+  const [menuWidth, setMenuWidth] = useState('50');
+
+  const toggleMenu = () => {
+    setShowMenu(!showMenu);
+    setMenuWidth(showMenu ? 0 : 50);
+  };
+
+
+
   return (
     <header className="bg-gray-800 text-white">
       <nav className="flex flex-wrap items-center justify-between p-6 ">
-        <div className={`fixed top-0 left-0 h-screen w-50 bg-gray-800 z-50 overflow-y-auto ${showMenu ? 'block' : 'hidden'}`}>
+        <div
+          className={`fixed top-0 left-0 h-screen w-${menuWidth} bg-gray-800 z-50 overflow-y-auto ${
+            showMenu ? 'block' : 'hidden'
+          } transition-all duration-500`}
+        >
           <div className="px-4 p-20">
             <Link className="block mt-4 text-gray-200 hover:text-white" href="/">
               Home
@@ -42,20 +59,4 @@ const Header = ({ showMenu, toggleMenu }) => {
   );
 };
 
-const HeaderLayout = ({ Component, pageProps }) => {
-  const [showMenu, setShowMenu] = useState(true);
-
-  const toggleMenu = () => {
-    setShowMenu(!showMenu);
-  };
-
-  return (
-    <div>
-      <Layout showMenu={showMenu} toggleMenu={toggleMenu}>
-        <Component {...pageProps} />
-      </Layout>
-    </div>
-  );
-};
-
-export default HeaderLayout;
+export default Header;

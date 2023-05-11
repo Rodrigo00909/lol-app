@@ -4,16 +4,26 @@ import { useState } from 'react';
 import Link from 'next/link';
 
 const Header = () => {
-  const [showMenu, setShowMenu] = useState(true);
+  const [showMenu, setShowMenu] = useState(false);
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
   };
 
+/* Para solucionar la superposición del menú lateral con el logo: Quizás lo mejor sea meter el logo en otro nav/div o en otro componente. */
+
   return (
     <header className="bg-gray-800 text-white">
-      <nav className="flex flex-wrap items-center flex-start p-6 ">
-        <div className={`fixed top-0 left-0 h-screen w-64 bg-gray-800 z-50 overflow-y-auto ${showMenu ? 'block' : 'hidden'}`}>
+        {/* <div className="flex flex-col items-center justify-between p-6 bg-gray-800 text-white">
+            <div className="flex items-center flex-shrink-0 mr-6">
+                <span className="font-semibold text-xl tracking-tight">My App</span>
+            </div>
+        </div> */}
+      <nav className="flex flex-wrap items-center justify-between p-6 ">
+        {/* <div className="flex items-center flex-shrink-0 mr-6">
+          <span className="font-semibold text-xl tracking-tight">My App</span>
+        </div> */}
+        <div className={`fixed top-0 left-0 h-screen w-50 bg-gray-800 z-50 overflow-y-auto ${showMenu ? 'block' : 'hidden'}`}>
           <div className="px-4 p-20">
             <Link className="block mt-4 text-gray-200 hover:text-white" href="/">
               Home
@@ -43,12 +53,19 @@ const Header = () => {
             </svg>
           </button>
         </div>
-        <div className="flex items-center flex-shrink-0 mr-6">
-          <span className="font-semibold text-xl tracking-tight">My App</span>
-        </div>
+       
       </nav>
     </header>
   );
 };
 
-export default Header;
+const Layout = ({ children }) => {
+  return (
+    <div className="flex">
+      <Header />
+      <div className="flex-1 p-6">{children}</div>
+    </div>
+  );
+};
+
+export default Layout;
