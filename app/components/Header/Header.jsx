@@ -21,7 +21,7 @@ const Header = () => {
     <header className="bg-gray-800 text-white">
       <nav className="flex flex-wrap items-center justify-between p-6 ">
         <div
-          className={`fixed top-0 left-0 h-screen w-${menuWidth} bg-gray-800 z-50 overflow-y-auto ${
+          className={`absolute top-0 left-0 h-screen w-${menuWidth} bg-gray-800 z-50 overflow-y-auto ${
             showMenu ? 'block' : 'hidden'
           } transition-all duration-500`}
         >
